@@ -1,5 +1,5 @@
 {
-    "name": "AlternativeTraderPics",
+    "name": "SillyCatTraderIcons",
     "version": "310.0.1",
     "sptVersion": "3.10.*",
     "loadBefore": [],
@@ -24,7 +24,7 @@
         "typescript": "5.4",
         "winston": "3.12"
     },
-    "author": "jbs4bmx",
-    "contributors": ["Revingly"],
+    "author": "AmTurtle",
+    "contributors": ["jbs4bmx", "Revingly"],
     "license": "MIT"
 }
