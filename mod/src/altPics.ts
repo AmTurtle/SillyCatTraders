@@ -1,5 +1,5 @@
 /**
- * Copyright: jbs4bmx, revingly
+ * Copyright: amturtle, jbs4bmx, revingly
 */
 
 import { container, DependencyContainer } from "tsyringe";
