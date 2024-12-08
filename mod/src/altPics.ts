@@ -24,7 +24,10 @@ class TraderPics implements IPostSptLoadMod
     public postSptLoad(container: DependencyContainer) {
         this.pkg = require("../package.json");
         const vfs = container.resolve<VFS>("VFS");
-        const { extension, updateAllTraders, updatePrapor, updateTherapist, updateFence, updateSkier, updatePeacekeeper, updateMechanic, updateRagman, updateJaeger, updateLightKeeper, updateBTRDriver, updateRef, AIOTrader, AKGuy, AnastasiaSvetlana, ARSHoppe, Bootlegger, DRIP, GearGal, GoblinKing, Gunsmith, IProject, KatarinaBlack, KeyMaster, MFACShop, Priscilu, Questor, TheBroker } = jsonc.parse(vfs.readFile(path.resolve(__dirname, "../config.jsonc")));
+        const { extension, updateAllTraders, updatePrapor, updateTherapist, updateFence, updateSkier, updatePeacekeeper, 
+                updateMechanic, updateRagman, updateJaeger, updateLightKeeper, updateBTRDriver, updateRef, Scorpion, 
+                AIOTrader, AKGuy, AnastasiaSvetlana, ARSHoppe, Bootlegger, DRIP, GearGal, GoblinKing, Gunsmith, IProject, 
+                KatarinaBlack, KeyMaster, MFACShop, Priscilu, Questor, TheBroker, cuteTrader, zeroTrader, sashahimik} = jsonc.parse(vfs.readFile(path.resolve(__dirname, "../config.jsonc")));
         const filepath = `${preSptModLoader.getModPath(this.modName)}res/`;
         this.fs.readdir(filepath, (err, files) => {
             files.forEach(file => {
@@ -89,6 +92,11 @@ class TraderPics implements IPostSptLoadMod
                     }
                     if ( updateRef ) {
                         if ( traderName === "6617beeaa9cfa777ca915b7c" ) {
+                            imageRouter.addRoute(`/files/trader/avatar/${traderName}`,`${filepath}${traderName}.${extension}`);
+                        }
+                    }
+                    if ( Scorpion ) {
+                        if ( traderName === "6688d464bc40c867f60e7d7e" ) {
                             imageRouter.addRoute(`/files/trader/avatar/${traderName}`,`${filepath}${traderName}.${extension}`);
                         }
                     }
@@ -178,6 +186,21 @@ class TraderPics implements IPostSptLoadMod
                     }
                     if ( TheBroker ) {
                         if ( traderName === "broker_portrait1" ) {
+                            imageRouter.addRoute(`/files/trader/avatar/${traderName}`,`${filepath}${traderName}.${extension}`);
+                        }
+                    }
+                    if ( cuteTrader ) {
+                        if ( traderName === "kwmKYUUTO" ) {
+                            imageRouter.addRoute(`/files/trader/avatar/${traderName}`,`${filepath}${traderName}.${extension}`);
+                        }
+                    }
+                    if ( zeroTrader ) {
+                        if ( traderName === "kwmZERO" ) {
+                            imageRouter.addRoute(`/files/trader/avatar/${traderName}`,`${filepath}${traderName}.${extension}`);
+                        }
+                    }
+                    if ( sashahimik ) {
+                        if ( traderName === "himik" ) {
                             imageRouter.addRoute(`/files/trader/avatar/${traderName}`,`${filepath}${traderName}.${extension}`);
                         }
                     }
