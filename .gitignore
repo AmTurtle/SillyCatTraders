@@ -1,2 +1,5 @@
 .DS_store
 .builds/
+
+# Node
+node_modules

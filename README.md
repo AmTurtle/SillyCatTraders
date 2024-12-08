@@ -52,8 +52,6 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 Type: Server Mod</br>
@@ -67,8 +65,6 @@ Example Image:</br>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 ### Built With
 | Frameworks/Libraries                                      | Name         | Link                                       |
 | :-------------------------------------------------------: | :----------: | :----------------------------------------: |
@@ -80,8 +76,6 @@ Example Image:</br>
 | <img src="./images/icons/VSCodium-Dark.svg" width="48">     | `VSCodium`      | [VSCodium Website][Vscodium-url]          |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -105,8 +99,6 @@ Follow these steps to install and configure the mod:
   6. Now you can launch the game and profit.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- CONFIGURATION EXAMPLES -->
 ## Configuration
@@ -196,8 +188,6 @@ A: Short answer: yes. <br>
 A: Long answer: I plan to update this mod to support as many trader mods as possible, however, I cannot guarantee any sort of an ETA for those updates.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- ROADMAP -->
 ## Roadmap
