@@ -24,10 +24,7 @@ class TraderPics implements IPostSptLoadMod
     public postSptLoad(container: DependencyContainer) {
         this.pkg = require("../package.json");
         const vfs = container.resolve<VFS>("VFS");
-        const { extension, updateAllTraders, updatePrapor, updateTherapist, updateFence, updateSkier, updatePeacekeeper, 
-                updateMechanic, updateRagman, updateJaeger, updateLightKeeper, updateBTRDriver, updateRef, Scorpion, 
-                AIOTrader, AKGuy, AnastasiaSvetlana, ARSHoppe, Bootlegger, DRIP, GearGal, GoblinKing, Gunsmith, IProject, 
-                KatarinaBlack, KeyMaster, MFACShop, Priscilu, Questor, TheBroker, cuteTrader, zeroTrader, sashahimik} = jsonc.parse(vfs.readFile(path.resolve(__dirname, "../config.jsonc")));
+        const { extension, updateAllTraders, updatePrapor, updateTherapist, updateFence, updateSkier, updatePeacekeeper, updateMechanic, updateRagman, updateJaeger, updateLightKeeper, updateBTRDriver, updateRef, Scorpion, AIOTrader, AKGuy, AnastasiaSvetlana, ARSHoppe, Bootlegger, DRIP, GearGal, GoblinKing, Gunsmith, IProject, KatarinaBlack, KeyMaster, MFACShop, Priscilu, Questor, TheBroker, cuteTrader, zeroTrader, sashahimik, TraderArtem} = jsonc.parse(vfs.readFile(path.resolve(__dirname, "../config.jsonc")));
         const filepath = `${preSptModLoader.getModPath(this.modName)}res/`;
         this.fs.readdir(filepath, (err, files) => {
             files.forEach(file => {
@@ -204,6 +201,9 @@ class TraderPics implements IPostSptLoadMod
                             imageRouter.addRoute(`/files/trader/avatar/${traderName}`,`${filepath}${traderName}.${extension}`);
                         }
                     }
+                    if ( TraderArtem ) {
+                        if ( traderName === "66bf757f27d0b097db0acea5" ) {
+                            imageRouter.addRoute(`/files/trader/avatar/${traderName}`,`${filepath}${traderName}.${extension}`);
                 }
             });
         });

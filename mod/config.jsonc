@@ -33,12 +33,11 @@
   "updateRef": false,
 
   //*_____MOD TRADERS_____*/
-  "Scorpion": false,
+  
   "AIOTrader": false,
   "AKGuy": false,
   "AnastasiaSvetlana": false,
   "ARSHoppe": false,
-  "ArtemTrader": false,
   "Bootlegger": false,
   "DRIP": false,
   "GearGal": false,
@@ -54,5 +53,7 @@
   "cuteTrader": false,
   "zeroTrader": false,
   "Legs": false,
-  "sashahimik": false
+  "sashahimik": false,
+  "Scorpion": false,
+  "ArtemTrader": false
 }
