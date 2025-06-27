@@ -15,6 +15,6 @@ This mod supports traders from other mods as well. I will attempt to do my best 
   1. Extract the contents of the zip file into the root of your SPT folder. It will automatically place the file into your mods folder.
   2. This mod should be loaded after all other mods that add new traders.
   3. If you suspect that this mod is loading before an additional trader is loaded, the load order may need to be changed by adding an additional "Z" or more to the folder name.
-  4. After altering the name, delete BSG temp files using the settings menu in the SPT.Launcher.exe program.
+  4. After altering the name, delete BSG temp files using the settings menu in the Aki.Launcher.exe program.
 
 :eof
