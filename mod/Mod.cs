@@ -27,41 +27,43 @@ public record ModMetadata : AbstractModMetadata
 [Injectable(TypePriority = OnLoadOrder.PostDBModLoader + 2)]
 public class TraderAvatarLoader(ISptLogger<TraderAvatarLoader> logger) : IOnLoad
 {
-    private static readonly Dictionary<string, string[]> TraderFiles = new(StringComparer.OrdinalIgnoreCase)
+    private sealed record TraderImageMapping(string SourceName, params string[] DestinationNames);
+
+    private static readonly Dictionary<string, TraderImageMapping[]> TraderFiles = new(StringComparer.OrdinalIgnoreCase)
     {
-        ["updatePrapor"] = ["59b91ca086f77469a81232e4"],
-        ["updateTherapist"] = ["59b91cab86f77469aa5343ca"],
-        ["updateFence"] = ["579dc571d53a0658a154fbec"],
-        ["updateSkier"] = ["59b91cb486f77469a81232e5"],
-        ["updatePeacekeeper"] = ["59b91cbd86f77469aa5343cb"],
-        ["updateMechanic"] = ["5a7c2ebb86f7746e324a06ab"],
-        ["updateRagman"] = ["5ac3b86a86f77461491d1ad8"],
-        ["updateJaeger"] = ["5c06531a86f7746319710e1b"],
-        ["updateLightKeeper"] = ["638f541a29ffd1183d187f57"],
-        ["updateBTRDriver"] = ["656f0f98d80a697f855d34b1"],
-        ["updateRef"] = ["6617beeaa9cfa777ca915b7c"],
-        ["Scorpion"] = ["6688d464bc40c867f60e7d7e"],
-        ["AIOTrader"] = ["aiotrader", "blueheadtrader"],
-        ["AKGuy"] = ["AKGUY"],
-        ["AnastasiaSvetlana"] = ["Anastasia", "Svetlana"],
-        ["ARSHoppe"] = ["armalite"],
-        ["Bootlegger"] = ["bootlegger"],
-        ["DRIP"] = ["moron"],
-        ["GearGal"] = ["GearGal"],
-        ["GoblinKing"] = ["GoblinKing"],
-        ["Gunsmith"] = ["gunsmith"],
-        ["IProject"] = ["PRTS"],
-        ["KatarinaBlack"] = ["kat", "sepi1"],
-        ["KeyMaster"] = ["keymaster"],
-        ["MFACShop"] = ["MFAC"],
-        ["Priscilu"] = ["Priscilu"],
-        ["Questor"] = ["questor"],
-        ["TheBroker"] = ["broker_portrait1"],
-        ["cuteTrader"] = ["kwmKYUUTO"],
-        ["zeroTrader"] = ["kwmZERO"],
-        ["Legs"] = ["Legs"],
-        ["sashahimik"] = ["himik"],
-        ["ArtemTrader"] = ["66bf757f27d0b097db0acea5"]
+        ["updatePrapor"] = [new("59b91ca086f77469a81232e4", "59b91ca086f77469a81232e4")],
+        ["updateTherapist"] = [new("59b91cab86f77469aa5343ca", "59b91cab86f77469aa5343ca")],
+        ["updateFence"] = [new("579dc571d53a0658a154fbec", "579dc571d53a0658a154fbec")],
+        ["updateSkier"] = [new("59b91cb486f77469a81232e5", "59b91cb486f77469a81232e5")],
+        ["updatePeacekeeper"] = [new("59b91cbd86f77469aa5343cb", "59b91cbd86f77469aa5343cb")],
+        ["updateMechanic"] = [new("5a7c2ebb86f7746e324a06ab", "5a7c2ebb86f7746e324a06ab")],
+        ["updateRagman"] = [new("5ac3b86a86f77461491d1ad8", "5ac3b86a86f77461491d1ad8")],
+        ["updateJaeger"] = [new("5c06531a86f7746319710e1b", "5c06531a86f7746319710e1b")],
+        ["updateLightKeeper"] = [new("638f541a29ffd1183d187f57", "638f541a29ffd1183d187f57")],
+        ["updateBTRDriver"] = [new("656f0f98d80a697f855d34b1", "656f0f98d80a697f855d34b1")],
+        ["updateRef"] = [new("6617beeaa9cfa777ca915b7c", "6617beeaa9cfa777ca915b7c")],
+        ["Scorpion"] = [new("scorpion", "6688d464bc40c867f60e7d7e", "scorpion")],
+        ["AIOTrader"] = [new("aiotrader", "aiotrader"), new("bluehead", "blueheadtrader", "bluehead")],
+        ["AKGuy"] = [new("AKGUY", "AKGUY")],
+        ["AnastasiaSvetlana"] = [new("Anastasia", "Anastasia"), new("Svetlana", "Svetlana")],
+        ["ARSHoppe"] = [new("armalite", "armalite")],
+        ["Bootlegger"] = [new("bootlegger", "bootlegger")],
+        ["DRIP"] = [new("moron", "moron")],
+        ["GearGal"] = [new("GearGal", "GearGal")],
+        ["GoblinKing"] = [new("GoblinKing", "GoblinKing")],
+        ["Gunsmith"] = [new("gunsmith", "gunsmith")],
+        ["IProject"] = [new("PRTS", "PRTS")],
+        ["KatarinaBlack"] = [new("kat", "kat"), new("sepi1", "sepi1")],
+        ["KeyMaster"] = [new("keymaster", "keymaster")],
+        ["MFACShop"] = [new("MFAC", "MFAC")],
+        ["Priscilu"] = [new("Priscilu", "Priscilu")],
+        ["Questor"] = [new("questor", "questor")],
+        ["TheBroker"] = [new("broker_portrait1", "broker_portrait1")],
+        ["cuteTrader"] = [new("kwmKYUUTO", "kwmKYUUTO")],
+        ["zeroTrader"] = [new("kwmZERO", "kwmZERO")],
+        ["Legs"] = [new("Legs", "Legs")],
+        ["sashahimik"] = [new("himik", "himik")],
+        ["ArtemTrader"] = [new("Artem", "66bf757f27d0b097db0acea5", "Artem")]
     };
 
     public Task OnLoad()
@@ -97,22 +99,22 @@ public class TraderAvatarLoader(ISptLogger<TraderAvatarLoader> logger) : IOnLoad
 
         Directory.CreateDirectory(avatarDirectory);
 
-        HashSet<string> selectedNames = GetSelectedTraderNames(config, sourceDirectory);
+        List<TraderImageMapping> selectedMappings = GetSelectedMappings(config, sourceDirectory);
         int copiedCount = 0;
 
-        foreach (string traderName in selectedNames)
+        foreach (TraderImageMapping mapping in selectedMappings)
         {
-            string sourcePath = Path.Combine(sourceDirectory, $"{traderName}.{config.Extension}");
+            string sourcePath = Path.Combine(sourceDirectory, $"{mapping.SourceName}.{config.Extension}");
             if (!File.Exists(sourcePath))
             {
-                logger.Warning($"Silly Cat Trader Icons: Missing source image for '{traderName}' at {sourcePath}");
+                logger.Warning($"Silly Cat Trader Icons: Missing source image for '{mapping.SourceName}' at {sourcePath}");
                 continue;
             }
 
-            copiedCount += CopyAvatarVariants(sourcePath, avatarDirectory, traderName);
+            copiedCount += CopyAvatarVariants(sourcePath, avatarDirectory, mapping.DestinationNames);
         }
 
-        logger.Info($"Silly Cat Trader Icons v4.0.0: Updated {selectedNames.Count} trader image(s), wrote {copiedCount} file(s) to cache.");
+        logger.Info($"Silly Cat Trader Icons v4.0.0: Updated {selectedMappings.Count} trader mapping(s), wrote {copiedCount} file(s) to cache.");
         return Task.CompletedTask;
     }
 
@@ -130,24 +132,43 @@ public class TraderAvatarLoader(ISptLogger<TraderAvatarLoader> logger) : IOnLoad
         return config ?? new TraderAvatarConfig();
     }
 
-    private static HashSet<string> GetSelectedTraderNames(TraderAvatarConfig config, string sourceDirectory)
+    private static List<TraderImageMapping> GetSelectedMappings(TraderAvatarConfig config, string sourceDirectory)
     {
         if (config.UpdateAllTraders)
         {
-            return Directory
-                .EnumerateFiles(sourceDirectory, $"*.{config.Extension}", SearchOption.TopDirectoryOnly)
-                .Select(file => Path.GetFileNameWithoutExtension(file))
+            List<TraderImageMapping> mappings = TraderFiles.Values
+                .SelectMany(value => value)
+                .DistinctBy(mapping => mapping.SourceName)
+                .ToList();
+
+            HashSet<string> knownSources = mappings
+                .Select(mapping => mapping.SourceName)
                 .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+            foreach (string looseFile in Directory.EnumerateFiles(sourceDirectory, $"*.{config.Extension}", SearchOption.TopDirectoryOnly))
+            {
+                string sourceName = Path.GetFileNameWithoutExtension(looseFile);
+                if (!knownSources.Contains(sourceName))
+                {
+                    mappings.Add(new TraderImageMapping(sourceName, sourceName));
+                }
+            }
+
+            return mappings;
         }
 
-        HashSet<string> selected = new(StringComparer.OrdinalIgnoreCase);
-        foreach ((string configKey, string[] traderNames) in TraderFiles)
+        List<TraderImageMapping> selected = [];
+        HashSet<string> seenSources = new(StringComparer.OrdinalIgnoreCase);
+        foreach ((string configKey, TraderImageMapping[] mappings) in TraderFiles)
         {
             if (config.IsEnabled(configKey))
             {
-                foreach (string traderName in traderNames)
+                foreach (TraderImageMapping mapping in mappings)
                 {
-                    selected.Add(traderName);
+                    if (seenSources.Add(mapping.SourceName))
+                    {
+                        selected.Add(mapping);
+                    }
                 }
             }
         }
@@ -155,14 +176,17 @@ public class TraderAvatarLoader(ISptLogger<TraderAvatarLoader> logger) : IOnLoad
         return selected;
     }
 
-    private static int CopyAvatarVariants(string sourcePath, string avatarDirectory, string traderName)
+    private static int CopyAvatarVariants(string sourcePath, string avatarDirectory, IEnumerable<string> traderNames)
     {
         int copyCount = 0;
-        foreach (string extension in new[] { "jpg", "png" })
+        foreach (string traderName in traderNames)
         {
-            string destinationPath = Path.Combine(avatarDirectory, $"{traderName}.{extension}");
-            File.Copy(sourcePath, destinationPath, overwrite: true);
-            copyCount++;
+            foreach (string extension in new[] { "jpg", "png" })
+            {
+                string destinationPath = Path.Combine(avatarDirectory, $"{traderName}.{extension}");
+                File.Copy(sourcePath, destinationPath, overwrite: true);
+                copyCount++;
+            }
         }
 
         return copyCount;
