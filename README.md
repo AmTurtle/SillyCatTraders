@@ -8,13 +8,13 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/jbs4bmx/AlternativeTraderPics">
+  <a href="#readme-top">
     <img src="./images/ATPBanner.png" alt="logo" width="640" height="320">
   </a>
 
-  <h3 align="center">Alternative Trader Pics</h3>
+  <h3 align="center">Silly Cat Trader Icons</h3>
 
-  <p align="center">Update your trader avatars to a better looking alternative!<br /></p>
+  <p align="center">Replace trader avatars with the sillier cat-themed icons from this mod.<br /></p>
 
   [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X8X611JH15)
 </div>
@@ -60,15 +60,17 @@ Disclaimer: **This mod is provided _as-is_ with _no guarantee_ of support.**
 Description:</br>
 Replaces the server method that displays the trader avatars with a custom method that uses custom image files for the trader avatars. These can be changed out to any avatars(images) desired, provided that you follow the steps to ensure that they all match filetypes and are of equal or very similar size.
 
+Originally forked from `jbs4bmx/AlternativeTraderPics`, now independently maintained as `Silly Cat Trader Icons`.
+
 Example Image:</br>
-![ATP Screen Shot](https://hub.sp-tarkov.com/attachment/5507/)
+![Silly Cat Trader Icons example](https://hub.sp-tarkov.com/attachment/5507/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
 | Frameworks/Libraries                                      | Name         | Link                                       |
 | :-------------------------------------------------------: | :----------: | :----------------------------------------: |
-| <img src="./images/icons/TypeScript.svg" width="48">      | `TypeScript` | [TypeScript Website][TypeScript-url]       |
+| <img src="./images/icons/TypeScript.svg" width="48">      | `C# / .NET 9` | [Microsoft .NET][DotNet-url]              |
 | <img src="./images/icons/batch.png" width="48">           | `Batch`      | [Batch Documentation][Batch-url]           |
 
 |                         IDEs                                |      Name       | Link                                      |
@@ -84,25 +86,35 @@ This section will explain how to install and use this mod.
 ### Prerequisites
 EFT and SPT are required to use this mod.
 
+For the `4.0.x` branch of this mod:
+  * SPT `4.0.x` (`4.0.13` tested target)
+  * .NET `9` runtime to run SPT
+  * .NET `9` SDK if you want to build this repo yourself
+
 ### Installation
 _For the purpose of these directions, "[SPT]" represents your SPT folder path._
 
-Start by downloading the mod from the [Releases](https://github.com/jbs4bmx/AlternativeTraderPics/releases) page.
+Start by downloading the mod from this repos releases page once you publish a release build.
 
 Follow these steps to install and configure the mod:
-  1. Extract the contents of the zip file into the root of your [SPT] folder.
-     - That's the same location as "SPT.Server.exe" and "SPT.Launcher.exe".
-  2. Edit the Config to adjust the values to your liking.
-  3. Start SPT.Server.exe and wait until it fully loads.
-  4. Start SPT.Launcher.exe but do not launch the game.
-  5. Run the cache cleaner found in the launcher's settings menu.
-  6. Now you can launch the game and profit.
+  1. Build the project in `Release` mode.
+  2. Copy the folder inside `mod/bin/Release/` into `[SPT]/mods/`.
+  3. Edit `config.jsonc` to adjust the values to your liking.
+  4. Start SPT. The mod will copy the chosen trader images into `sptappdata/files/trader/avatar/` during server load.
+  5. Launch the game.
+
+To build locally:
+```bash
+dotnet build mod/SillyCatTraderIcons.csproj -c Release
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONFIGURATION EXAMPLES -->
 ## Configuration
 You can specify which images you want to change and leave the rest as their defaults. Default is to change all supported trader images (default traders and mod traders). To change this, set the line '**updateAllTraders**' to *false* and then enable or disable the trader(s) of your choice in the options below by setting them to *true*. '**updateAllTraders**' will override other options when set to *true*.
+
+On SPT `4.0.x`, the mod copies the selected images into the trader avatar cache on startup. The `extension` setting controls which files are read from the installed mods `res/` folder. The mod writes compatible cache files for both `.jpg` and `.png` trader avatar requests.
 ```jsonc
 {
   // ======================================================================================
@@ -175,13 +187,13 @@ Follow these guidelines to make sure the new pictures fit the item frames within
 **EXAMPLE: PRAPOR --> .\res\59b91ca086f77469a81232e4.JPG (IMAGE SIZE 512X512)**
   * If you would like to replace this picture, rename the picture of your choosing to include the same string "59b91ca086f77469a81232e4" and copy it to the .\res folder.
   * If a file of the same name exists, click on "Yes" or "OK" to overwrite it.
-  * To change to png from jpg, and vice versa, you will need to edit the ./src/config.js file.
+  * To change to png from jpg, and vice versa, you will need to edit `./config.jsonc`.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Mod FAQ
 **Q: Why aren't the trader images changing?** <br>
-A: The cached default images can override custom images if they are currently present when first using this mod. To get around this, you can use the included batch script in the mod's main folder to backup the default images so that custom images will load. The script name is "Rename-Cached_Images.bat". Just double-click it to launch and follow the on-screen prompts. (Note: This script also lets you restore your default images, should you ever want to uninstall this mod. Just run it again and follow the prompts.)
+A: On the `4.0.x` version of the mod, the server copies the selected files into `sptappdata/files/trader/avatar` on startup. If something still looks stale, close the game and relaunch SPT so the cache folder can be refreshed again. The included batch script can still be used if you want to manually backup or restore cached avatar files.
 
 **Q: Do you plan on supporting other trader mods?** <br>
 A: Short answer: yes. <br>
@@ -203,7 +215,7 @@ A: Long answer: I plan to update this mod to support as many trader mods as poss
 - [X] Update Readme, license, and change log files.
 - [X] Add new logo and banner images.
 
-Suggest changes or view/report issues [here](https://github.com/jbs4bmx/AlternativeTraderPics/issues).
+Suggest changes or report issues in this repos issue tracker.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -250,20 +262,20 @@ Contributors:
 
 
 <!-- Repository Metrics -->
-[contributors-shield]: https://img.shields.io/github/contributors/jbs4bmx/AlternativeTraderPics.svg?style=for-the-badge
-[contributors-url]: https://github.com/jbs4bmx/AlternativeTraderPics/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/jbs4bmx/AlternativeTraderPics.svg?style=for-the-badge
-[forks-url]: https://github.com/jbs4bmx/AlternativeTraderPics/network/members
-[stars-shield]: https://img.shields.io/github/stars/jbs4bmx/AlternativeTraderPics.svg?style=for-the-badge
-[stars-url]: https://github.com/jbs4bmx/AlternativeTraderPics/stargazers
-[issues-shield]: https://img.shields.io/github/issues/jbs4bmx/AlternativeTraderPics.svg?style=for-the-badge
-[issues-url]: https://github.com/jbs4bmx/AlternativeTraderPics/issues
-[license-shield]: https://img.shields.io/github/license/jbs4bmx/AlternativeTraderPics.svg?style=for-the-badge
-[license-url]: https://github.com/jbs4bmx/AlternativeTraderPics/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/badge/contributors-local-blue?style=for-the-badge
+[contributors-url]: #acknowledgments
+[forks-shield]: https://img.shields.io/badge/forks-local-blue?style=for-the-badge
+[forks-url]: #readme-top
+[stars-shield]: https://img.shields.io/badge/stars-local-blue?style=for-the-badge
+[stars-url]: #readme-top
+[issues-shield]: https://img.shields.io/badge/issues-local-blue?style=for-the-badge
+[issues-url]: #readme-top
+[license-shield]: https://img.shields.io/badge/license-MIT-green?style=for-the-badge
+[license-url]: ./LICENSE.txt
 
 
 
 <!-- Framwork/Library URLs -->
-[TypeScript-url]: https://www.typescriptlang.org/
+[DotNet-url]: https://dotnet.microsoft.com/
 [Batch-url]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands
 [Vscodium-url]: https://vscodium.com/

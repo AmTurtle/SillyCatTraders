@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mod", "mod", "{4721CDBE-9835-733F-D50B-18F505229922}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SillyCatTraderIcons", "mod\SillyCatTraderIcons.csproj", "{26E56B6B-2EE0-C080-9C73-26C98AB92DF5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{26E56B6B-2EE0-C080-9C73-26C98AB92DF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26E56B6B-2EE0-C080-9C73-26C98AB92DF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26E56B6B-2EE0-C080-9C73-26C98AB92DF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26E56B6B-2EE0-C080-9C73-26C98AB92DF5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{26E56B6B-2EE0-C080-9C73-26C98AB92DF5} = {4721CDBE-9835-733F-D50B-18F505229922}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {701E1347-1AE7-4E45-AD63-644C402DC017}
+	EndGlobalSection
+EndGlobal
