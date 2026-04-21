@@ -1,6 +1,6 @@
 # Silly Cat Trader Icons
 
-Server mod for SPT `4.0.x` that replaces trader avatars with the cat-themed icons included in this project.
+Server mod for SPT `4.0.x` that replaces trader avatars with the cat-themed icons.
 
 Originally forked from `jbs4bmx/AlternativeTraderPics`, now independently maintained as `Silly Cat Trader Icons`.
 
@@ -32,8 +32,6 @@ The `extension` setting controls which files are read from the installed mods `r
 
 ## Notes
 
-- This branch is the SPT `4.0.x` C#/.NET 9 version of the mod.
-- The older `3.x` TypeScript packaging/build files are not used by this branch.
 - The included `Rename-Cached_Images.bat` script is optional and can still be used to manually rename cached avatar files.
 
 ## License
